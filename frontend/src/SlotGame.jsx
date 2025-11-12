@@ -58,7 +58,7 @@ function SlotGame() {
       if (data.success) {
         setCredits(data.user.credits);
 
-        // 🔥 Cek apakah user punya custom win chance
+        // Cek apakah user punya custom win chance
         if (
           data.user.custom_win_chance !== null &&
           data.user.custom_win_chance !== undefined
@@ -122,7 +122,7 @@ function SlotGame() {
 
   const isAdmin = localStorage.getItem("isAdmin") === "true";
 
-  // 🔥 REALTIME: Listen to credits update, reset, dan custom win chance
+  // REALTIME: Listen to credits update, reset, dan custom win chance
   useEffect(() => {
     if (!isLoggedIn || !username) return;
 
@@ -147,7 +147,7 @@ function SlotGame() {
       setTimeout(() => setMessage(""), 5000);
     });
 
-    // 🔥 Listen untuk CustomWinChanceUpdated
+    //Listen untuk CustomWinChanceUpdated
     userChannel.listen(".CustomWinChanceUpdated", (e) => {
       console.log("✅ Custom win chance updated:", e);
 
@@ -170,7 +170,7 @@ function SlotGame() {
     };
   }, [isLoggedIn, username]);
 
-  // 🔥 Heartbeat - Kirim ping setiap 10 detik
+  //Heartbeat - Kirim ping setiap 10 detik
   useEffect(() => {
     if (!isLoggedIn || !username) return;
 
@@ -195,7 +195,7 @@ function SlotGame() {
     return () => clearInterval(heartbeatInterval);
   }, [isLoggedIn, username]);
 
-  // 🔥 REALTIME: Listen to global win chance changes (hanya jika tidak pakai custom)
+  // REALTIME: Listen to global win chance changes (hanya jika tidak pakai custom)
   useEffect(() => {
     if (!isLoggedIn || hasCustomWinChance) return;
 
@@ -215,7 +215,7 @@ function SlotGame() {
     };
   }, [isLoggedIn, hasCustomWinChance]);
 
-  // 🔥 AUTO REFRESH: Fetch credits setiap 5 detik sebagai backup
+  // AUTO REFRESH: Fetch credits setiap 5 detik sebagai backup
   useEffect(() => {
     if (!isLoggedIn || !username) return;
 
