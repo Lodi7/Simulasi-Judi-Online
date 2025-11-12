@@ -1,18 +1,15 @@
 // src/echo.js
 import Echo from "laravel-echo";
-import Pusher from "pusher-js"; // ⬅️ WAJIB diimpor agar Echo bisa jalan
+import Pusher from "pusher-js";
 
+// Wajib: sambungkan Pusher ke window
 window.Pusher = Pusher;
 
 const echo = new Echo({
-  broadcaster: "reverb", // pakai Reverb, bukan Pusher
-  key: "4vahshuuylwjkadqnqjm", // REVERB_APP_KEY dari .env Laravel
-  wsHost: window.location.hostname || "127.0.0.1", // biar otomatis sesuai host
-  wsPort: 8080, // sesuai REVERB_PORT
-  wssPort: 8080, // untuk HTTPS (biar gak error)
-  forceTLS: false, // false karena Reverb lokal
-  enabledTransports: ["ws", "wss"], // dua-duanya biar fleksibel
-  disableStats: true,
+  broadcaster: "pusher",
+  key: import.meta.env.VITE_PUSHER_APP_KEY, // ambil dari .env Vite (frontend)
+  cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER, // ambil dari .env
+  forceTLS: true, // true biar aman & cocok untuk production (Hostinger)
 });
 
 export default echo;
